@@ -22,7 +22,7 @@ const connect = (callback = () => {}) => {
       if (err) {
         console.log(err);
       } else {
-        console.log('connected to database');
+        console.log(`Connected to CosmosDB ${COSMOSDB_HOST}:${COSMOSDB_PORT}`);
         callback();
       }
     },
