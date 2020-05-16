@@ -23,7 +23,8 @@ module.exports = {
       'react',
     ],
     rules: {
-      "react/prop-types": 0
+      "react/prop-types": 0,
+      "no-console": "off" // Most of this code will be run in node, not the browser
     },
   };
   
