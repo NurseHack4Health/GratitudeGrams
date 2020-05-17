@@ -1,3 +1,6 @@
+
+<img src="images/logo.png" width="256" />
+
 # Root - Grow Your Gratitude
 A web and mobile platform for nursing teams providing continuous gratitude reinforcement by gamification incentives and customizable positive messages.
 
