@@ -14,6 +14,22 @@ router.get('/user/:userId', (req, res) => {
     });
 });
 
+router.get('/:threadId', (req, res) => {
+  const { threadId } = req.params;
+  Thread.findById(threadId)
+    .then((doc) => {
+      if (!doc) {
+        res.status.send(404);
+      } else {
+        res.send(doc);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send(err);
+    });
+});
+
 router.post('/:threadId', (req, res) => {
   const {
     content,
