@@ -11,8 +11,10 @@ const {
 
 const connect = (callback = () => {}) => {
   mongoose.connect(
-    `mongodb://${COSMOSDB_HOST}:${COSMOSDB_PORT}/${COSMOSDB_DBNAME}?ssl=true&replicaSet=globaldb`,
+    `mongodb://${COSMOSDB_HOST}:${COSMOSDB_PORT}/${COSMOSDB_DBNAME}?ssl=true&replicaSet=globaldb&retrywrites=false`,
     {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
       auth: {
         user: COSMOSDB_USER,
         password: COSMOSDB_PASS,
