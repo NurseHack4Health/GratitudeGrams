@@ -53,12 +53,11 @@ Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
 
 ## API spec
 
 
-### `GET /:threadId`
+### `GET threads/:threadId`
 
 param|type|description
 --|--|--
@@ -87,7 +86,7 @@ messages|[Message](#Message)`[]`|Array of messages sent between participants of 
   
 ---
 
-### `POST /:threadId`
+### `POST threads/:threadId`
 
 |param|type|description
 ------|----|-----------
@@ -98,7 +97,28 @@ recipientId|`String`|User Id of recipient
 
 ---
 
+### `GET /threads/user/:userId`
+
+|param|type|description
+--|--|--
+:threadId|`String`|The ID of the user for which to get threads
+
+#### Response: `Thread[]`
+
+##### Thread
+
+|field|type|description
+--|--|--
+_id|String|Id of the Thread
+usernames|`String[]`|Array containing usernames of thread participants
+userIds|`String[]`|Array of userIds of thread participants
+
+---
+
 ### `GET /users/:userId`
+
+Get all information about a specific Root user. Excludes password property.
+
 param|type|description
 --|--|--
 userId|`String`|(Required) ID of the user.
@@ -123,25 +143,9 @@ createdAt|`Date`|Date and time the transaction was completed.
 
 ---
 
-### `GET /threads/user/:userId`
-
-|param|type|description
---|--|--
-:threadId|`String`|The ID of the user for which to get threads
-
-#### Response: `Thread[]`
-
-##### Thread
-
-|field|type|description
---|--|--
-_id|String|Id of the Thread
-usernames|`String[]`|Array containing usernames of thread participants
-userIds|`String[]`|Array of userIds of thread participants
-
----
-
 ### `GET /users/search`
+
+Search for usernames with a given `searchText`. Used for autocomplete dropdown, etc.
 param|type|description
 --|--|--
 searchText|`String`|(Required) Text that you want to search usernames for.
@@ -155,6 +159,10 @@ _id|`String`|Unique ID of the username
 <br>
 
 ### `POST /users`
+
+Create a new user in the Root system.
+
+
 param|type|description
 --|--|--
 username|`String`|(Required) Username of the new user.
