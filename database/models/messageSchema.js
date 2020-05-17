@@ -2,11 +2,16 @@ const mongoose = require('mongoose');
 
 const messageSchema = new mongoose.Schema({
   senderId: mongoose.ObjectId,
-  recipient: mongoose.ObjectId,
-  seen: Boolean,
-  time: Date,
+  recipientId: mongoose.ObjectId,
+  seen: {
+    type: Boolean,
+    default: false,
+  },
   resource: String,
-  resourceClaimed: false,
+  resourceClaimed: {
+    type: Boolean,
+    default: false,
+  },
   type: String,
   content: String,
 },
