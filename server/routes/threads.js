@@ -34,25 +34,47 @@ router.post('/:threadId', (req, res) => {
   const {
     content,
     resource,
-    sender,
-    recipient,
+    senderId,
+    recipientId,
   } = req.body;
   Promise.resolve(req.params.threadId)
     .then((threadId) => {
       if (threadId === 'new') {
-        const thread = new Thread({
-          usernames: [sender, recipient],
-          userIds: [],
-          messages: [],
-        });
-        return thread.save();
+        const filter = { _id: { $in: [senderId, recipientId] } };
+        const projection = 'username';
+        return User.find(filter, projection)
+          .then((usernames) => {
+            const thread = new Thread({
+              usernames,
+              userIds: [senderId, recipientId],
+              messages: [],
+            });
+            return thread.save();
+          });
       }
       return Thread.findById(threadId);
     })
     .then((thread) => {
       thread.messages.push({
-        senderId: 
+        senderId,
+        recipientId,
+        seen: false,
+        resource,
+        type: 'text',
+        content,
       });
+      thread.save();
+    })
+    .then((doc) => (
+      // Check if message acknowledges any prior messages
+      // and allocate points to users
+      doc
+    ))
+    .then((doc) => {
+      res.send(doc);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
     });
 });
 
