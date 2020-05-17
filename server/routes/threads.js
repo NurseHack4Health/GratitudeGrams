@@ -4,7 +4,7 @@ const router = express.Router();
 
 const { Thread, User } = require('../../database/index');
 
-router.get('/:userId', (req, res) => {
+router.get('/user/:userId', (req, res) => {
   const { userId } = req.params;
   const filter = { userIds: userId };
   const projection = '-messages';
